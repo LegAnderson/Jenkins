@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <TargetDatabase>Jenkins-3Dev</TargetDatabase>
+    <TargetConnectionString>Data Source=.;Initial Catalog=Jenkins-3Dev;Integrated Security=True;Pooling=False;Encrypt=False;Trust Server Certificate=True;Multi Subnet Failover=False</TargetConnectionString>
+  </PropertyGroup>
+</Project>
