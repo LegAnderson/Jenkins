@@ -1,22 +1,21 @@
 node {
-    def PROJECT_PATH = 'VoiceOfTheDBA\\VoiceOfTheDBA_Jenkins'
-    def TEST_PROJECT_PATH = 'VoiceOfTheDBA\\VoiceOfTheDBA.Tests'
+    def PROJECT_PATH = 'JenkinsDemo'
  
-    def BUILD_ARTIFACT_PACKAGE_ID = 'VoiceOfTheDBA'
+    def BUILD_ARTIFACT_PACKAGE_ID = 'PKG.DB'
     def BUILD_ARTIFACT_PACKAGE_VERSION = "1.0.${env.BUILD_NUMBER}"
     def BUILD_ARTIFACT_FILE = "${BUILD_ARTIFACT_PACKAGE_ID}.${BUILD_ARTIFACT_PACKAGE_VERSION}.nupkg"
  
-    def INTEGRATION_INSTANCE = 'WIN2016'
-    def INTEGRATION_DATABASE = 'VoiceOfTheDBA_Integration'
+    def INTEGRATION_INSTANCE = 'WIN-5I6QVUJUG4J'
+    def INTEGRATION_DATABASE = 'Jenkins-2Test'
  
-    def ACCEPTANCE_INSTANCE = 'WIN2016'
-    def ACCEPTANCE_DATABASE = 'VoiceOfTheDBA_Acceptance'
+    def ACCEPTANCE_INSTANCE = 'WIN-5I6QVUJUG4J'
+    def ACCEPTANCE_DATABASE = 'Jenkins-2QA'
  
-    def PRODUCTION_INSTANCE = 'WIN2016'
-    def PRODUCTION_DATABASE = 'VoiceOfTheDBA_Production'
+    def PRODUCTION_INSTANCE = 'WIN-5I6QVUJUG4J'
+    def PRODUCTION_DATABASE = 'Jenkins-1Prod'
  
-    def CLONE_SERVER_URL = 'http://WIN2016:14145'
-    def CLONE_IMAGE_LOCATION = '\\\\WIN2016\\LocalCloneImages'
+    def CLONE_SERVER_URL = 'http://win-5i6qvujug4j:14145'
+    def CLONE_IMAGE_LOCATION = '\\WIN-5I6QVUJUG4J\SQLCloneImages'
  
     def RELEASE_ARTIFACT_PATH = 'Release'
  
@@ -31,20 +30,8 @@ node {
             Export-DatabaseBuildArtifact -InputObject \$buildArtifact -Path .
         """)
  
-        archiveArtifacts label: 'Archive build artifact', artifacts: "${BUILD_ARTIFACT_FILE}"
-    }
- 
-    stage ('Unit tests') {
-        powershell(label: 'Unit tests', script: """
-            \$ErrorActionPreference = "Stop"
- 
-            \$testResults = Invoke-DatabaseTests -InputObject ${TEST_PROJECT_PATH}
-            Export-DatabaseTestResults \$testResults -OutputFile _test_results.xml
-        """)
- 
-        junit "_test_results.xml"
-    }
- 
+        archiveArtifacts label: 'Archive build artifact', artifacts: "${BUILD_ARTIFACT_FILE}"    }
+  
     stage ('Deploy to integration') {
         powershell(label: 'Deploy to integration', script: """
             \$ErrorActionPreference = "Stop"
