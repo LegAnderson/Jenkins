@@ -15,7 +15,7 @@ node {
     def PRODUCTION_DATABASE = 'Jenkins-1Prod'
  
     def CLONE_SERVER_URL = 'http://win-5i6qvujug4j:14145'
-    def CLONE_IMAGE_LOCATION = "\\WIN-5I6QVUJUG4J\SQLCloneImages"
+    def CLONE_IMAGE_LOCATION = "\\\\WIN-5I6QVUJUG4J\SQLCloneImages"
  
     def RELEASE_ARTIFACT_PATH = 'Release'
  
