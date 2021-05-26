@@ -46,8 +46,11 @@ node {
         powershell(label: 'Deploy to production', script: """
             \$ErrorActionPreference = "Stop"
  
-            \$releaseArtifact = Import-DatabaseReleaseArtifact -Path ${RELEASE_ARTIFACT_PATH}
+            \$buildArtifact = Import-DatabaseBuildArtifact -Path ${BUILD_ARTIFACT_FILE}
             \$productionDatabaseConnection = New-DatabaseConnection -ServerInstance ${PRODUCTION_INSTANCE} -Database ${PRODUCTION_DATABASE}
+ 
+            \$releaseArtifact = New-DatabaseReleaseArtifact -Source \$buildArtifact -Target \$productionDatabaseConnection
+
             Use-DatabaseReleaseArtifact -InputObject \$releaseArtifact -DeployTo \$productionDatabaseConnection
         """)
     }
